@@ -199,7 +199,7 @@ function startOrder(type){
 }
 
 function visibleProducts(){
- if(activeTab==="Best Pick")return MENU.filter(x=>x.tag==="Best Seller"||x.tag==="Must Try");
+ if(activeTab==="Best Pick")return MENU.filter(x=>BEST_PICK_IDS.includes(x.id));
  return MENU.filter(x=>x.category===activeTab);
 }
 function renderTabs(){
