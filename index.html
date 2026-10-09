@@ -151,7 +151,7 @@ const categories=["Best Pick","Mains","Bucket","Sides","Extras","Drinks"];
 const BEST_PICK_IDS=["honey-bagoong","korean-soy","bicol-express","sinigang-sa-batuwan"];
 
 
-const money=n=>n===0?"Price not set":"₱"+n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+const money=n=>n===0?"Price not set":n.toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
 
 
 function syncDrawerUI(open){
@@ -237,9 +237,9 @@ function renderCart(){
 }
 function createReceipt(){
  const sub=cart.reduce((a,x)=>a+x.price*x.qty,0);
- let s="YOUR STORE\n------------------------------\n"+orderType.toUpperCase()+"\n"+new Date().toLocaleString("en-PH")+"\n------------------------------\n";
+ let s="SABONG FRIED CHICKEN\n------------------------------\n"+orderType.toUpperCase()+"\n"+new Date().toLocaleString("en-PH")+"\n------------------------------\n";
  cart.forEach(x=>s+=`${x.qty} x ${x.name}\n    ${money(x.price*x.qty)}\n`);
- return s+"------------------------------\nTOTAL: "+money(sub)+"\n------------------------------\nPlease bring this order slip to the cashier.\n";
+ return s+"------------------------------\nTOTAL: "+money(sub)+"\n------------------------------\nPlease bring this order slip to the cashier.\n\n\n\n";
 }
 function openCheckout(){
  document.getElementById("modalMeta").textContent=`${orderType} · ${cart.reduce((a,x)=>a+x.qty,0)} items · ${document.getElementById("total").textContent}`;
