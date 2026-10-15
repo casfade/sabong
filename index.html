@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stockroom — UI Prototype</title>
+<style>
+:root{--ink:#17212b;--muted:#697582;--line:#e5e9ed;--paper:#f6f7f8;--white:#fff;--accent:#17212b;--green:#237a57;--amber:#946200}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 Arial,Helvetica,sans-serif}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #9bb8ff;outline-offset:2px}
+.demo{background:#fff3d4;color:#6d4b00;text-align:center;padding:8px 12px;font-size:12px;font-weight:700;border-bottom:1px solid #ead9a5}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.head{max-width:900px;margin:auto;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:800;font-size:19px;letter-spacing:-.5px}.sub{font-size:12px;color:var(--muted);margin-top:2px}.pill{font-size:11px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;white-space:nowrap}
+main{max-width:900px;margin:0 auto;padding:22px 16px 100px}.pagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}h1{font-size:26px;letter-spacing:-.7px;margin:0 0 4px}h2{font-size:17px;margin:0 0 14px}p{margin:4px 0;color:var(--muted)}.btn{border:1px solid var(--ink);background:var(--ink);color:#fff;padding:11px 14px;border-radius:10px;font-weight:700}.btn.secondary{background:#fff;color:var(--ink);border-color:var(--line)}.btn.small{padding:7px 10px;font-size:13px}.btn:disabled{opacity:.45;cursor:not-allowed}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:18px}.stat,.panel,.item,.logrow{background:#fff;border:1px solid var(--line);border-radius:14px}.stat{padding:15px}.stat .label{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:27px;letter-spacing:-1px;margin-top:4px}.toolbar{display:flex;gap:8px;margin:16px 0}.search{flex:1;min-width:0;border:1px solid var(--line);border-radius:10px;background:#fff;padding:11px 12px}.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:3px;margin-bottom:13px}.tab{background:#fff;border:1px solid var(--line);padding:8px 12px;border-radius:9px;white-space:nowrap;color:var(--muted)}.tab.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.items{display:grid;gap:10px}.item{display:flex;align-items:center;padding:12px;gap:12px}.thumb{width:62px;height:62px;border-radius:10px;background:#edf0f2;display:grid;place-items:center;font-size:25px;flex-shrink:0;overflow:hidden}.thumb img{width:100%;height:100%;object-fit:cover}.iteminfo{flex:1;min-width:0}.itemname{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sku{font-size:12px;color:var(--muted);margin-top:2px}.qty{font-weight:800;text-align:right;white-space:nowrap}.qty small{display:block;color:var(--muted);font-weight:400;font-size:11px}.badge{display:inline-block;font-size:11px;padding:3px 7px;border-radius:6px;background:#edf7f1;color:var(--green);margin-top:5px}.badge.low{background:#fff3df;color:var(--amber)}
+.panel{padding:16px;margin-bottom:12px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:700;color:#4d5965}input,select{width:100%;padding:11px 12px;border:1px solid #dce1e6;border-radius:9px;background:#fff;color:var(--ink)}.help{font-size:12px;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.qrbox{border:1px dashed #cbd2d9;border-radius:12px;padding:14px;text-align:center;background:#fff}.qrpattern{width:120px;height:120px;margin:10px auto;background:repeating-conic-gradient(#111 0 25%,#fff 0 50%) 0/14px 14px;position:relative;border:8px solid #fff;outline:1px solid #ddd}.qrpattern:before,.qrpattern:after{content:"";position:absolute;width:27px;height:27px;background:#fff;border:6px solid #111;box-shadow:inset 0 0 0 5px #fff,inset 0 0 0 9px #111}.qrpattern:before{top:0;left:0}.qrpattern:after{right:0;bottom:0}.loglist{display:grid;gap:8px}.logrow{padding:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}.logtitle{font-weight:700}.logmeta{font-size:12px;color:var(--muted);margin-top:3px}.delta{font-weight:800;white-space:nowrap}.positive{color:var(--green)}.negative{color:#a43a35}.hidden{display:none!important}.empty{padding:35px 18px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:14px}.empty strong{display:block;color:var(--ink);margin-bottom:5px}.footnote{font-size:12px;color:var(--muted);margin-top:12px}.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:8;padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom));}.navinner{width:100%;max-width:600px;display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.navbtn{border:0;background:transparent;color:var(--muted);border-radius:9px;padding:8px 4px;font-size:11px}.navbtn span{display:block;font-size:18px;margin-bottom:2px}.navbtn.active{background:#f0f2f4;color:var(--ink);font-weight:700}.modalback{position:fixed;inset:0;background:#10182066;z-index:20;display:grid;place-items:end center;padding:12px}.modal{background:#fff;border-radius:18px 18px 12px 12px;padding:20px;width:100%;max-width:520px;max-height:85vh;overflow:auto}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.close{border:0;background:#f1f3f5;border-radius:8px;padding:7px 10px}
+@media(min-width:650px){main{padding-top:30px}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.bottomnav{position:static;border:0;background:transparent;padding:0 16px 18px}.navinner{background:#fff;border:1px solid var(--line);border-radius:13px;padding:5px}.modalback{place-items:center}.modal{border-radius:16px}.thumb{width:72px;height:72px}}
+@media(max-width:430px){.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}.pagehead{align-items:center}h1{font-size:23px}.pagehead .btn{padding:10px;font-size:13px}.pill{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="demo">PROOFING MODE · SAMPLE DATA ONLY · NOT SHARED ACROSS DEVICES</div>
+<header><div class="head"><div><div class="brand">Stockroom</div><div class="sub">Simple inventory overview</div></div><span class="pill">DEMO</span></div></header>
+<main>
+<section id="view-inventory">
+ <div class="pagehead"><div><h1>Inventory</h1><p>Check remaining packs at a glance.</p></div><button class="btn" onclick="showView('receive')">＋ Receive stock</button></div>
+ <div class="stats"><div class="stat"><div class="label">Stock items</div><strong id="statItems">8</strong></div><div class="stat"><div class="label">Packs remaining</div><strong id="statPacks">128</strong></div><div class="stat"><div class="label">Low stock items</div><strong id="statLow">2</strong></div></div>
+ <div class="toolbar"><input id="search" class="search" placeholder="Search item or SKU…" oninput="renderItems()"><button class="btn secondary" onclick="showView('scan')">Scan QR</button></div>
+ <div class="tabs"><button class="tab active" data-filter="all" onclick="setFilter('all',this)">All items</button><button class="tab" data-filter="low" onclick="setFilter('low',this)">Low stock</button></div>
+ <div id="items" class="items"></div>
+ <p class="footnote">Quantities shown are illustrative sample values. This prototype does not save transactions.</p>
+</section>
+<section id="view-receive" class="hidden">
+ <div class="pagehead"><div><h1>Receive stock</h1><p>Preview the item registration form.</p></div></div>
+ <div class="panel"><div class="formgrid">
+  <div class="field"><label>Category</label><select><option>Packaging</option><option>Ingredients</option><option>Supplies</option><option>Merchandise</option></select></div>
+  <div class="field"><label>Type</label><select><option>Paper bag</option><option>Container</option><option>Label</option><option>Other</option></select></div>
+  <div class="field"><label>Identifier</label><input placeholder="e.g. MED, 12OZ"></div>
+  <div class="field"><label>Item name</label><input placeholder="e.g. Medium kraft bag"></div>
+  <div class="field"><label>Number of packs received</label><input type="number" placeholder="e.g. 20"></div>
+  <div class="field"><label>Photo</label><input type="file" accept="image/*" disabled><span class="help">Photo upload is disabled in UI-only proofing.</span></div>
+ </div><div class="actions"><button class="btn" onclick="showModal('SKU & QR preview','This is a visual-only preview. No item will be created.')">Preview SKU & QR</button><button class="btn secondary" onclick="showView('inventory')">Cancel</button></div></div>
+ <div class="panel"><h2>Generated label preview</h2><div class="qrbox"><div class="qrpattern"></div><strong>PKG-PB-MED-001</strong><div class="help">Sample QR artwork · not a scannable code</div><div class="actions" style="justify-content:center"><button class="btn secondary small" onclick="showModal('Print preview','Printing is not active in this UI-only prototype.')">Print label</button></div></div></div>
+</section>
+<section id="view-log" class="hidden">
+ <div class="pagehead"><div><h1>Stock log</h1><p>Example transactions and balances.</p></div><button class="btn secondary" onclick="showModal('Stock log','This is sample history only. Transaction processing is disabled.')">About log</button></div>
+ <div class="tabs"><button class="tab active" onclick="setLogFilter('all',this)">All</button><button class="tab" onclick="setLogFilter('Received',this)">Received</button><button class="tab" onclick="setLogFilter('Delivered',this)">Delivered</button><button class="tab" onclick="setLogFilter('Replenished',this)">Replenished</button></div>
+ <div id="loglist" class="loglist"></div>
+ <p class="footnote">The history below is fictional sample data for visual review only.</p>
+</section>
+<section id="view-scan" class="hidden">
+ <div class="pagehead"><div><h1>Scan QR</h1><p>Preview the delivery workflow.</p></div></div>
+ <div class="panel"><div class="qrbox"><div style="font-size:30px">▦</div><strong>Scan an item's QR code</strong><p>Camera scanning is not enabled in this prototype.</p><div class="actions" style="justify-content:center"><button class="btn" onclick="showModal('QR scanning','The production version will request camera access and find the item by SKU. No stock changes happen here.')">Preview scan flow</button><button class="btn secondary" onclick="showView('inventory')">Back to inventory</button></div></div></div>
+ <div class="panel"><h2>After scanning</h2><p>Item details → enter packs delivered → review remaining packs → confirm.</p><p class="footnote">Delivery and replenishment are not processed in this UI-only prototype.</p></div>
+</section>
+</main>
+<nav class="bottomnav"><div class="navinner"><button class="navbtn active" data-view="inventory" onclick="showView('inventory')"><span>▦</span>Inventory</button><button class="navbtn" data-view="receive" onclick="showView('receive')"><span>＋</span>Receive</button><button class="navbtn" data-view="log" onclick="showView('log')"><span>≡</span>Stock log</button></div></nav>
+<div id="modalback" class="modalback hidden" onclick="if(event.target===this)closeModal()"><div class="modal"><div class="modalhead"><h2 id="modaltitle" style="margin:0">Preview</h2><button class="close" onclick="closeModal()">Close</button></div><p id="modalbody"></p><div class="actions"><button class="btn" onclick="closeModal()">Got it</button></div></div></div>
+<script>
+const sampleItems=[
+ {sku:"PKG-PB-MED-001",name:"Medium kraft bag",category:"Packaging",type:"Paper bag",qty:24,icon:"🛍️"},
+ {sku:"PKG-CT-12OZ-002",name:"12 oz food container",category:"Packaging",type:"Container",qty:18,icon:"🥡"},
+ {sku:"ING-CH-001",name:"Chicken seasoning",category:"Ingredients",type:"Seasoning",qty:8,icon:"🧂"},
+ {sku:"PKG-LB-ROUND-003",name:"Round product label",category:"Packaging",type:"Label",qty:6,icon:"🏷️"},
+ {sku:"SUP-GLV-M-001",name:"Disposable gloves — M",category:"Supplies",type:"Gloves",qty:30,icon:"🧤"},
+ {sku:"PKG-CUP-16OZ-004",name:"16 oz drink cup",category:"Packaging",type:"Cup",qty:12,icon:"🥤"},
+ {sku:"SUP-TIS-001",name:"Paper tissue pack",category:"Supplies",type:"Tissue",qty:20,icon:"🧻"},
+ {sku:"MER-STK-001",name:"Logo sticker sheet",category:"Merchandise",type:"Sticker",qty:10,icon:"✨"}
+];
+const sampleLogs=[
+ {date:"Today · 10:42 AM",sku:"PKG-PB-MED-001",name:"Medium kraft bag",type:"Received",qty:10,balance:24},
+ {date:"Today · 10:18 AM",sku:"PKG-CT-12OZ-002",name:"12 oz food container",type:"Delivered",qty:-4,balance:18},
+ {date:"Yesterday · 4:20 PM",sku:"SUP-GLV-M-001",name:"Disposable gloves — M",type:"Replenished",qty:-3,balance:30},
+ {date:"Yesterday · 2:05 PM",sku:"PKG-LB-ROUND-003",name:"Round product label",type:"Delivered",qty:-2,balance:6},
+ {date:"Oct 13 · 11:32 AM",sku:"ING-CH-001",name:"Chicken seasoning",type:"Received",qty:12,balance:8},
+ {date:"Oct 13 · 9:10 AM",sku:"PKG-CUP-16OZ-004",name:"16 oz drink cup",type:"Replenished",qty:-5,balance:12}
+];
+let activeFilter="all",activeLogFilter="all";
+function showView(v){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));document.getElementById('view-'+v).classList.remove('hidden');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===v));window.scrollTo({top:0,behavior:'smooth'})}
+function setFilter(f,btn){activeFilter=f;document.querySelectorAll('#view-inventory .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderItems()}
+function renderItems(){const q=(document.getElementById('search').value||'').toLowerCase();const arr=sampleItems.filter(i=>(activeFilter!=='low'||i.qty<=10)&&(i.name+' '+i.sku+' '+i.category).toLowerCase().includes(q));document.getElementById('items').innerHTML=arr.length?arr.map(i=>`<div class="item"><div class="thumb">${i.icon}</div><div class="iteminfo"><div class="itemname">${i.name}</div><div class="sku">${i.sku}</div><span class="badge ${i.qty<=10?'low':''}">${i.qty<=10?'Low stock':i.category}</span></div><div class="qty">${i.qty}<small>packs left</small></div></div>`).join(''):'<div class="empty"><strong>No matching items</strong>Try another search.</div>';document.getElementById('statItems').textContent=sampleItems.length;document.getElementById('statPacks').textContent=sampleItems.reduce((s,i)=>s+i.qty,0);document.getElementById('statLow').textContent=sampleItems.filter(i=>i.qty<=10).length}
+function setLogFilter(f,btn){activeLogFilter=f;document.querySelectorAll('#view-log .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderLogs()}
+function renderLogs(){const arr=sampleLogs.filter(l=>activeLogFilter==='all'||l.type===activeLogFilter);document.getElementById('loglist').innerHTML=arr.map(l=>`<div class="logrow"><div><div class="logtitle">${l.type} · ${l.name}</div><div class="logmeta">${l.date} · ${l.sku}</div></div><div class="delta ${l.qty>0?'positive':'negative'}">${l.qty>0?'+':''}${l.qty}<div class="logmeta">Balance: ${l.balance} packs</div></div></div>`).join('')}
+function showModal(title,body){document.getElementById('modaltitle').textContent=title;document.getElementById('modalbody').textContent=body;document.getElementById('modalback').classList.remove('hidden')}
+function closeModal(){document.getElementById('modalback').classList.add('hidden')}
+renderItems();renderLogs();
+</script>
+</body></html>
